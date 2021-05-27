@@ -1,0 +1,23 @@
+.error {
+  text-align: center;
+  margin: 100px 0 200px;
+}
+
+.error h1 {
+  font-size: 50px;
+}
+
+h1.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.back-icon {
+  padding-top: 5px;
+}
