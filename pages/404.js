@@ -13,7 +13,7 @@ export default function NotFoundPage() {
         <h4>page not found</h4>
         <Link href='/'>
           <a>
-            Back To Home <BiArrowBack className={styles['back-icon']} />
+            Back To Home <BiArrowBack className='back-icon' />
           </a>
         </Link>
       </div>

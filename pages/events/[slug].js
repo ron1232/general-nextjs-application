@@ -42,7 +42,7 @@ export default function EventPage({ evt }) {
         <p>{evt.address}</p>
         <Link href='/events'>
           <a className={styles.back}>
-            <BiArrowBack /> Go Back
+            <BiArrowBack className='back-icon' /> Go Back
           </a>
         </Link>
       </div>
