@@ -21,6 +21,11 @@ a {
   padding-top: 5px;
 }
 
+.back {
+  display: block;
+  margin-top: 40px;
+}
+
 p {
   margin: 10px 0;
 }

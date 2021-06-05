@@ -11,6 +11,7 @@ import { content } from '@/static/formFields';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import GoBack from '@/components/GoBack';
 
 const capitilizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -63,7 +64,7 @@ export default function AddEventPage() {
   const router = useRouter();
   return (
     <Layout title='Add New Event'>
-      <Link href='/events'>Go Back</Link>
+      <GoBack />
       <h1>Add Event</h1>
       <ToastContainer />
       <form

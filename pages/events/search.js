@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { API_URL } from '@/config/index';
 import qs from 'qs';
 import http from '@/services/http';
+import GoBack from '@/components/GoBack';
 
 export default function SearchPage({ events }) {
   const router = useRouter();
 
   return (
     <Layout title={`Search Results - "${router?.query?.term}"`}>
-      <Link href='/events'>Go Back</Link>
+      <GoBack />
       <h1>Search Results for "{router?.query?.term}"</h1>
       {!events.length ? (
         <i>No events to show</i>
