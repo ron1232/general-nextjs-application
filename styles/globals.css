@@ -60,6 +60,22 @@ h1 {
   cursor: pointer;
 }
 
+.btn-page {
+  font: inherit;
+  font-size: 13px;
+  background: #000;
+  color: #fff !important;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.btn-page--active {
+  background: rgb(44, 44, 44);
+}
+
 .btn-secondary:hover {
   opacity: 0.8;
 }
