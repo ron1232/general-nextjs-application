@@ -1,7 +1,14 @@
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .modal {
   background: white;
-  width: 500px;
-  height: 600px;
+  width: 25vw;
+  height: 35vw;
   border-radius: 15px;
   padding: 20px;
   z-index: 100;
@@ -18,7 +25,7 @@
 }
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -27,4 +34,42 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+@media only screen and (max-width: 90em) {
+  .modal {
+    width: 30vw;
+    height: 40vw;
+  }
+}
+
+@media only screen and (max-width: 64em) {
+  .modal {
+    width: 55vw;
+    height: 55vh;
+  }
+}
+
+/* @media only screen and (max-width: 48em) {
+  .modal {
+    width: 55vw;
+    height: 55vh;
+  }
+} */
+
+@media only screen and (max-width: 36.125em) {
+  .modal {
+    width: 80vw;
+    height: 60vh;
+  }
 }

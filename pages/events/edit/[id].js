@@ -3,7 +3,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import http from '@/services/http';
 import { API_URL } from '@/config/index';
@@ -15,12 +14,16 @@ import GoBack from '@/components/GoBack';
 import { eventSchema } from '@/schema/eventSchema';
 import { capitalizeFirstLetter, formatDate } from 'utils/functions';
 import { BsFillImageFill } from 'react-icons/bs';
+import Modal from '@/components/Modal';
+import ImageUpload from '@/components/ImageUpload';
 
 export default function EditEventPage({ evt }) {
   const [disabled, setDisabled] = useState(false);
   const [imagePreview, setImagePreview] = useState(
     evt.image ? evt.image?.formats?.thumbnail?.url : null
   );
+  const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -50,9 +53,17 @@ export default function EditEventPage({ evt }) {
     if (!res.ok) {
       toast.error('Something went wrong :(');
     } else {
-      toast.success('Added Event!');
+      toast.success('Edited Event!');
       router.push(`/events/${data.slug}`);
     }
+  };
+
+  const imageUploaded = async (e) => {
+    const { data } = await http(`${API_URL}/events/${evt.id}`);
+    setImagePreview(data?.image?.formats?.thumbnail?.url);
+    setShowModal(false);
+    setIsLoading(false);
+    toast.success('Uploaded Image!');
   };
 
   const router = useRouter();
@@ -114,10 +125,18 @@ export default function EditEventPage({ evt }) {
       )}
 
       <div>
-        <button className='btn-secondary'>
+        <button onClick={() => setShowModal(true)} className='btn-secondary'>
           <BsFillImageFill style={{ paddingTop: '0.2rem' }} /> Set Image
         </button>
       </div>
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
+        <ImageUpload
+          isLoading={isLoading}
+          evtId={evt.id}
+          imageUploaded={imageUploaded}
+          setIsLoading={setIsLoading}
+        />
+      </Modal>
     </Layout>
   );
 }
