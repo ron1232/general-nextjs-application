@@ -8,6 +8,7 @@
             "@/config/*": ["config/*"],
             "@/static/*": ["static/*"],
             "@/services/*": ["services/*"],
+            "@/schema/*": ["schema/*"],
         }
     }
 }

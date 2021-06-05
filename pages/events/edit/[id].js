@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import http from '@/services/http';
 import { API_URL } from '@/config/index';
 import styles from '@/styles/Form.module.css';
@@ -12,10 +13,14 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import GoBack from '@/components/GoBack';
 import { eventSchema } from '@/schema/eventSchema';
-import { capitalizeFirstLetter } from 'utils/functions';
+import { capitalizeFirstLetter, formatDate } from 'utils/functions';
+import { BsFillImageFill } from 'react-icons/bs';
 
-export default function AddEventPage() {
+export default function EditEventPage({ evt }) {
   const [disabled, setDisabled] = useState(false);
+  const [imagePreview, setImagePreview] = useState(
+    evt.image ? evt.image?.formats?.thumbnail?.url : null
+  );
 
   const {
     register,
@@ -23,13 +28,22 @@ export default function AddEventPage() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(eventSchema),
+    defaultValues: {
+      name: evt.name,
+      performers: evt.performers,
+      venue: evt.venue,
+      address: evt.address,
+      date: formatDate(evt.date),
+      time: evt.time,
+      description: evt.description,
+    },
   });
 
   const onSubmit = async (values) => {
-    const { data, res } = await http(`${API_URL}/events`, {
+    const { data, res } = await http(`${API_URL}/events/${evt.id}`, {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
-      method: 'POST',
+      method: 'PUT',
     });
     setDisabled(true);
 
@@ -43,9 +57,9 @@ export default function AddEventPage() {
 
   const router = useRouter();
   return (
-    <Layout title='Add New Event'>
+    <Layout title={`Edit Event`}>
       <GoBack />
-      <h1>Add Event</h1>
+      <h1>Edit Event</h1>
       <ToastContainer />
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -82,10 +96,38 @@ export default function AddEventPage() {
         <input
           disabled={disabled}
           type='submit'
-          value='Add Event'
+          value='Update Event'
           className='btn'
         />
       </form>
+      {imagePreview ? (
+        <>
+          <h2>Event Image:</h2>
+          <Image src={imagePreview} height={100} width={170} />
+        </>
+      ) : (
+        <div>
+          <p>
+            <i>No image uploaded</i>
+          </p>
+        </div>
+      )}
+
+      <div>
+        <button className='btn-secondary'>
+          <BsFillImageFill style={{ paddingTop: '0.2rem' }} /> Set Image
+        </button>
+      </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps({ params: { id } }) {
+  const { data: evt } = await http(`${API_URL}/events/${id}`);
+
+  return {
+    props: {
+      evt,
+    },
+  };
 }

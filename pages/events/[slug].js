@@ -90,7 +90,14 @@ export default function EventPage({ evt }) {
 
 export async function getServerSideProps({ query: { slug } }) {
   const { data: evt } = await http(`${API_URL}/events?slug=${slug}`);
+
+  if (!Object.keys(evt).length) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
-    props: { evt: evt[0] || {} },
+    props: { evt: evt[0] },
   };
 }
