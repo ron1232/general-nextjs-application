@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { API_URL } from '@/config/index';
 import qs from 'qs';
+import http from '@/services/http';
 
 export default function SearchPage({ events }) {
   const router = useRouter();
@@ -33,7 +34,7 @@ export async function getServerSideProps({ query: { term } }) {
     },
   });
 
-  const events = await (await fetch(`${API_URL}/events?${query}`)).json();
+  const { data: events } = await http(`${API_URL}/events?${query}`);
 
   return {
     props: { events },

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { AiFillEdit } from 'react-icons/ai';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
+import http from '@/services/http';
 
 export default function EventPage({ evt }) {
   const deleteEvent = () => {
@@ -60,7 +61,7 @@ export default function EventPage({ evt }) {
 }
 
 export async function getServerSideProps({ query: { slug } }) {
-  const evt = await (await fetch(`${API_URL}/events?slug=${slug}`)).json();
+  const { data: evt } = await http(`${API_URL}/events?slug=${slug}`);
   return {
     props: { evt: evt[0] },
   };
