@@ -2,6 +2,7 @@ import Layout from '@/components/Layout';
 import EventItem from '@/components/EventItem';
 import { API_URL } from '@/config/index';
 import Link from 'next/link';
+import http from '@/services/http';
 
 export default function Home({ events }) {
   return (
@@ -24,9 +25,9 @@ export default function Home({ events }) {
 }
 
 export async function getStaticProps() {
-  const events = await (
-    await fetch(`${API_URL}/events?_sort=date:ASC&_limit=3`)
-  ).json();
+  const { data: events } = await http(
+    `${API_URL}/events?_sort=date:ASC&_limit=3`
+  );
 
   return {
     props: { events },
