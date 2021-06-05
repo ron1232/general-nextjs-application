@@ -26,12 +26,21 @@ export default function EventPage({ evt }) {
           </a>
         </div>
         <span>
-          {evt.date} at {evt.time}
+          {new Date(evt.date).toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          })}{' '}
+          at {evt.time}
         </span>
         <h1>{evt.name}</h1>
         {evt.image && (
           <div className={styles.image}>
-            <Image src={evt.image} width={960} height={600} />
+            <Image
+              src={evt.image?.formats?.large?.url}
+              width={960}
+              height={600}
+            />
           </div>
         )}
         <h3>Performers:</h3>
@@ -51,7 +60,7 @@ export default function EventPage({ evt }) {
 }
 
 export async function getServerSideProps({ query: { slug } }) {
-  const { evt } = await (await fetch(`${API_URL}/api/events/${slug}`)).json();
+  const evt = await (await fetch(`${API_URL}/events?slug=${slug}`)).json();
   return {
     props: { evt: evt[0] },
   };
