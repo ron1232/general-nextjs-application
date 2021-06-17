@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import GoBack from '@/components/GoBack';
 import { eventSchema } from '@/schema/eventSchema';
-import { capitalizeFirstLetter, formatDate } from 'utils/functions';
+import { formatDate } from 'utils/functions';
 import { BsFillImageFill } from 'react-icons/bs';
 import Modal from '@/components/Modal';
 import ImageUpload from '@/components/ImageUpload';
@@ -81,7 +81,7 @@ export default function EditEventPage({ evt }) {
           {content.inputs.map((input, i) => (
             <div key={i}>
               <label htmlFor={input.name}>
-                Event {capitalizeFirstLetter(input.name)}:
+                Event {input.name.capitalizeFirstLetter}:
               </label>
               {errors[input.name] && (
                 <span className={styles.error}>

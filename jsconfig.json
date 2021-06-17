@@ -9,6 +9,7 @@
             "@/static/*": ["static/*"],
             "@/services/*": ["services/*"],
             "@/schema/*": ["schema/*"],
+            "@/context/*": ["context/*"],
         }
     }
 }

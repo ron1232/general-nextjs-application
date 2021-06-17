@@ -3,7 +3,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import Link from 'next/link';
 import http from '@/services/http';
 import { API_URL } from '@/config/index';
 import styles from '@/styles/Form.module.css';
@@ -12,7 +11,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import GoBack from '@/components/GoBack';
 import { eventSchema } from '@/schema/eventSchema';
-import { capitalizeFirstLetter } from 'utils/functions';
 
 export default function AddEventPage() {
   const [disabled, setDisabled] = useState(false);
@@ -56,7 +54,7 @@ export default function AddEventPage() {
           {content.inputs.map((input, i) => (
             <div key={i}>
               <label htmlFor={input.name}>
-                Event {capitalizeFirstLetter(input.name)}:
+                Event {input.name.capitalizeFirstLetter()}:
               </label>
               {errors[input.name] && (
                 <span className={styles.error}>
