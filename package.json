@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.5.2",
+    "cookie": "^0.4.1",
     "next": "10.2.3",
     "qs": "^6.10.1",
     "react": "17.0.2",

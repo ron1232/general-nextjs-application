@@ -52,6 +52,7 @@ export default function EditEventPage({ evt }) {
 
     if (!res.ok) {
       toast.error('Something went wrong :(');
+      setDisabled(false);
     } else {
       toast.success('Edited Event!');
       router.push(`/events/${data.slug}`);
@@ -141,7 +142,7 @@ export default function EditEventPage({ evt }) {
   );
 }
 
-export async function getServerSideProps({ params: { id } }) {
+export async function getServerSideProps({ params: { id }, req }) {
   const { data: evt } = await http(`${API_URL}/events/${id}`);
 
   return {

@@ -26,11 +26,12 @@ export default function LoginPage() {
   });
 
   useEffect(() => {
-    error && toast.error(error.identifierToEmail());
+    error && toast.error(error.identifierToEmail()) && setDisabled(false);
   });
 
   const onSubmit = async ({ email, password }) => {
     login({ email, password });
+    setDisabled(true);
   };
 
   return (

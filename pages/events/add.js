@@ -33,6 +33,7 @@ export default function AddEventPage() {
 
     if (!res.ok) {
       toast.error('Something went wrong :(');
+      setDisabled(false);
     } else {
       toast.success('Added Event!');
       router.push(`/events/${data.slug}`);
