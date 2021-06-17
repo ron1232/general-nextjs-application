@@ -10,6 +10,7 @@
             "@/services/*": ["services/*"],
             "@/schema/*": ["schema/*"],
             "@/context/*": ["context/*"],
+            "@/utils/*": ["utils/*"],
         }
     }
 }

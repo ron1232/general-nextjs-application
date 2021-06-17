@@ -37,13 +37,21 @@ export const AuthProvider = ({ children }) => {
 
   // Logout User
   const logout = async () => {
-    console.log('Logout');
+    const { res } = await http(`${NEXT_URL}/api/logout`, {
+      method: 'POST',
+    });
+    console.log(res);
+    if (!res.ok) {
+      return setError('Something is wrong...');
+    }
+    setUser(null);
+    router.push('/account/login');
   };
 
   // Check if user is logged in
   const checkUserLoggedIn = async () => {
     const { data, res } = await http(`${NEXT_URL}/api/user`, {
-      method: 'POST',
+      method: 'GET',
     });
 
     if (!res.ok) {

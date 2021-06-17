@@ -1,6 +1,7 @@
 import { API_URL } from '@/config/index';
 import http from '@/services/http';
 import cookie from 'cookie';
+import { authCookieKey } from '@/utils/config';
 
 export default async (req, res) => {
   if (req.method === 'POST') {
@@ -20,7 +21,7 @@ export default async (req, res) => {
 
     res.setHeader(
       'Set-Cookie',
-      cookie.serialize('token', data.jwt, {
+      cookie.serialize(authCookieKey, data.jwt, {
         httpOnly: true,
         sameSite: 'lax',
         secure: process.env.NODE_ENV !== 'development',

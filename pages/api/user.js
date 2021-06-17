@@ -1,12 +1,12 @@
 import { API_URL } from '@/config/index';
 import http from '@/services/http';
 import cookie from 'cookie';
-
-const authToken = 'token';
+import { authCookieKey } from '@/utils/config.js';
 
 export default async (req, res) => {
-  if (req.method === 'POST') {
-    const { token } = cookie.parse(req.headers.cookie);
+  if (req.method === 'GET') {
+    const parsed = cookie.parse(req.headers.cookie);
+    const token = parsed?.[authCookieKey];
 
     if (!token) {
       return res.status(403).json({ message: 'Not Authorized' });
@@ -23,7 +23,7 @@ export default async (req, res) => {
 
     res.status(200).json({ user });
   } else {
-    res.setHeader('Allow', ['POST']);
+    res.setHeader('Allow', ['GET']);
     res.status(405).json({ message: `Method ${req.method} Not Allowed` });
   }
 };
