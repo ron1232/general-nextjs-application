@@ -89,3 +89,7 @@ h1 {
 .btn-icon svg {
   margin-right: 5px;
 }
+
+.active {
+  font-weight: 700;
+}

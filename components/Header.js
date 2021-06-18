@@ -5,6 +5,7 @@ import Search from './Search';
 import AuthContext from '@/context/AuthContext';
 import { useContext } from 'react';
 import { FiLogOut } from 'react-icons/fi';
+import LinkCustom from './LinkCustom';
 
 export default function Header() {
   const { user, logout } = useContext(AuthContext);
@@ -20,22 +21,16 @@ export default function Header() {
       <nav>
         <ul>
           <li>
-            <Link href='/events'>
-              <a>Events</a>
-            </Link>
+            <LinkCustom pathname='/events' title='Events' />
           </li>
           {user ? (
             // If logged in
             <>
               <li>
-                <Link href='/events/add'>
-                  <a>Add Event</a>
-                </Link>
+                <LinkCustom pathname='/events/add' title='Add Event' />
               </li>
               <li>
-                <Link href='/account/dashboard'>
-                  <a>Dashboard</a>
-                </Link>
+                <LinkCustom pathname='/account/dashboard' title='Dashboard' />
               </li>
               <li>
                 <button onClick={logout} className='btn-secondary btn-icon'>
@@ -47,11 +42,13 @@ export default function Header() {
             // If logged out
             <>
               <li>
-                <Link href='/account/login'>
-                  <a>
-                    Login <BiLogIn style={{ paddingTop: '2.5px' }} />
-                  </a>
-                </Link>
+                <LinkCustom
+                  pathname='/account/login'
+                  title='Login'
+                  iconPosition='right'
+                >
+                  <BiLogIn style={{ paddingTop: '2.5px' }} />
+                </LinkCustom>
               </li>
             </>
           )}

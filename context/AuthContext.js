@@ -40,7 +40,6 @@ export const AuthProvider = ({ children }) => {
     const { res } = await http(`${NEXT_URL}/api/logout`, {
       method: 'POST',
     });
-    console.log(res);
     if (!res.ok) {
       return setError('Something is wrong...');
     }

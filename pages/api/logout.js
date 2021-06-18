@@ -3,7 +3,6 @@ import cookie from 'cookie';
 
 export default async (req, res) => {
   if (req.method === 'POST') {
-    console.log(authCookieKey);
     res.setHeader(
       'Set-Cookie',
       cookie.serialize(authCookieKey, '', {

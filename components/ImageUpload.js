@@ -37,7 +37,6 @@ export default function ImageUpload({
     setImage(e.target.files[0]);
   };
 
-  console.log(isLoading);
   return (
     <div className={styles.form}>
       <h1>
