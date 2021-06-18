@@ -19,15 +19,21 @@ export default function EventsPage({ events, page, total }) {
 }
 
 export async function getServerSideProps({ query: { page = 1 } }) {
-  const { data: total } = await http(`${API_URL}/events/count`);
+  try {
+    const { data: total } = await http(`${API_URL}/events/count`);
 
-  const { data: events } = await http(
-    `${API_URL}/events?_sort=date:ASC&_limit=${PER_PAGE}&_start=${
-      (+page - 1) * PER_PAGE
-    }`
-  );
+    const { data: events } = await http(
+      `${API_URL}/events?_sort=date:ASC&_limit=${PER_PAGE}&_start=${
+        (+page - 1) * PER_PAGE
+      }`
+    );
 
-  return {
-    props: { events, page: +page, total },
-  };
+    return {
+      props: { events, page: +page, total },
+    };
+  } catch (error) {
+    return {
+      props: { events: [], page: 1, total: 0 },
+    };
+  }
 }

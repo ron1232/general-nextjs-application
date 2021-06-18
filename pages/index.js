@@ -25,12 +25,19 @@ export default function Home({ events }) {
 }
 
 export async function getStaticProps() {
-  const { data: events } = await http(
-    `${API_URL}/events?_sort=date:ASC&_limit=3`
-  );
+  try {
+    const { data: events } = await http(
+      `${API_URL}/events?_sort=date:ASC&_limit=3`
+    );
 
-  return {
-    props: { events },
-    revalidate: 1,
-  };
+    return {
+      props: { events },
+      revalidate: 1,
+    };
+  } catch (error) {
+    return {
+      props: { events: [] },
+      revalidate: 1,
+    };
+  }
 }

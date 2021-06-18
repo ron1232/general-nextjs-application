@@ -143,11 +143,19 @@ export default function EditEventPage({ evt }) {
 }
 
 export async function getServerSideProps({ params: { id }, req }) {
-  const { data: evt } = await http(`${API_URL}/events/${id}`);
+  try {
+    const { data: evt } = await http(`${API_URL}/events/${id}`);
 
-  return {
-    props: {
-      evt,
-    },
-  };
+    return {
+      props: {
+        evt,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        evt: {},
+      },
+    };
+  }
 }
