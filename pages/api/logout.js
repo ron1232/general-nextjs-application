@@ -1,8 +1,18 @@
-import { authCookieKey } from '@/utils/config';
+import { authCookieKey, csrfCookieKey } from '@/utils/config';
 import cookie from 'cookie';
+import { verifyCsrfToken } from '@/utils/csrf';
 
 export default async (req, res) => {
   if (req.method === 'POST') {
+    const parsed = cookie.parse(req.headers.cookie || '');
+    const csrfToken = parsed?.[csrfCookieKey];
+
+    try {
+      verifyCsrfToken(csrfToken);
+    } catch (error) {
+      return res.status(403).json({ message: 'Invalid csrf token' });
+    }
+
     res.setHeader(
       'Set-Cookie',
       cookie.serialize(authCookieKey, '', {

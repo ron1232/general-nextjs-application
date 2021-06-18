@@ -1,12 +1,22 @@
 import { API_URL } from '@/config/index';
 import http from '@/services/http';
 import cookie from 'cookie';
-import { authCookieKey } from '@/utils/config.js';
+import { authCookieKey, csrfCookieKey } from '@/utils/config.js';
+import { verifyCsrfToken } from '@/utils/csrf';
 
 export default async (req, res) => {
   if (req.method === 'GET') {
     const parsed = cookie.parse(req.headers.cookie || '');
     const token = parsed?.[authCookieKey];
+    const csrfToken = parsed?.[csrfCookieKey];
+
+    console.log(csrfToken);
+
+    try {
+      verifyCsrfToken(csrfToken);
+    } catch (error) {
+      return res.status(403).json({ message: 'Invalid csrf token' });
+    }
 
     if (!token) {
       return res.status(403).json({ message: 'Not Authorized' });

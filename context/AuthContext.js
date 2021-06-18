@@ -2,6 +2,8 @@ import { createContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NEXT_URL } from '@/config/index';
 import http from '@/services/http';
+import Cookies from 'js-cookie';
+import { csrfCookieKey } from '@/utils/config';
 
 const AuthContext = createContext();
 
@@ -43,6 +45,7 @@ export const AuthProvider = ({ children }) => {
     if (!res.ok) {
       return setError('Something is wrong...');
     }
+    Cookies.remove(csrfCookieKey);
     setUser(null);
     router.push('/account/login');
   };

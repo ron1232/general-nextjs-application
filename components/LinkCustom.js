@@ -11,7 +11,7 @@ export default function LinkCustom({
 
   return (
     <Link href={pathname}>
-      <a className={router.pathname === pathname && 'active'}>
+      <a className={router.pathname === pathname ? 'active' : ''}>
         {children && iconPosition === 'left' && children} {title}
         {children && iconPosition === 'right' && children}
       </a>
