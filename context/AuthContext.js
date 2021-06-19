@@ -4,11 +4,10 @@ import { NEXT_URL } from '@/config/index';
 import http from '@/services/http';
 import Cookies from 'js-cookie';
 import { csrfCookieKey } from '@/utils/config';
-import { csrfToken } from '@/utils/csrf';
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children, csrfToken }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 

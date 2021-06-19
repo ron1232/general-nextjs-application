@@ -1,5 +1,5 @@
 import { FiUser } from 'react-icons/fi';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
@@ -9,8 +9,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '@/schema/authSchema';
 import AuthContext from '@/context/AuthContext';
-import http from '@/services/http';
-import { identifierToEmail } from 'utils/functions';
 
 export default function LoginPage() {
   const [disabled, setDisabled] = useState(false);
@@ -30,7 +28,7 @@ export default function LoginPage() {
   });
 
   const onSubmit = async ({ email, password }) => {
-    login({ email, password });
+    await login({ email, password });
     setDisabled(true);
   };
 
@@ -40,7 +38,6 @@ export default function LoginPage() {
         <h1>
           <FiUser /> Login
         </h1>
-        <ToastContainer />
         <form onSubmit={handleSubmit(onSubmit)} noValidate={true}>
           <div>
             <label htmlFor='email'>Email Address</label>
