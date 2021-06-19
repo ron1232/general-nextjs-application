@@ -6,7 +6,7 @@ export default function Pagination({ page, total }) {
   return (
     <>
       {[...Array(pages)].map((a, i) => (
-        <Link href={`/events?page=${i + 1}`}>
+        <Link key={i} href={`/events?page=${i + 1}`}>
           <a className={`btn-page ${page === i + 1 ? 'btn-page--active' : ''}`}>
             {i + 1}
           </a>

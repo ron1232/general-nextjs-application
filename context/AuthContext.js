@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (user) checkUserLoggedIn();
+    checkUserLoggedIn();
   }, []);
 
   const router = useRouter();

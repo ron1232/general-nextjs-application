@@ -1,5 +1,5 @@
 import { FiUser } from 'react-icons/fi';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
@@ -47,7 +47,6 @@ export default function RegisterPage() {
         <h1>
           <FiUser /> Register
         </h1>
-        <ToastContainer />
         <form onSubmit={handleSubmit(onSubmit)} noValidate={true}>
           <div>
             <label htmlFor='email'>Email Address</label>

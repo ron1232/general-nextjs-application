@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -45,7 +45,6 @@ export default function AddEventPage() {
     <Layout title='Add New Event'>
       <GoBack />
       <h1>Add Event</h1>
-      <ToastContainer />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className={styles.form}
