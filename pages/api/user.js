@@ -10,8 +10,6 @@ export default async (req, res) => {
     const token = parsed?.[authCookieKey];
     const csrfToken = parsed?.[csrfCookieKey];
 
-    console.log(csrfToken);
-
     try {
       verifyCsrfToken(csrfToken);
     } catch (error) {
