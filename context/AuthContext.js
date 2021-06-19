@@ -4,6 +4,7 @@ import { NEXT_URL } from '@/config/index';
 import http from '@/services/http';
 import Cookies from 'js-cookie';
 import { csrfCookieKey } from '@/utils/config';
+import { csrfToken } from '@/utils/csrf';
 
 const AuthContext = createContext();
 
@@ -11,7 +12,9 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(() => checkUserLoggedIn(), []);
+  useEffect(() => {
+    if (user) checkUserLoggedIn();
+  }, []);
 
   const router = useRouter();
 
@@ -32,7 +35,11 @@ export const AuthProvider = ({ children }) => {
       setError(data.message);
       return setError(null);
     }
-
+    Cookies.set(csrfCookieKey, csrfToken, {
+      sameSite: 'lax',
+      expires: 60 * 60 * 24 * 7,
+      path: '/',
+    });
     setUser(data.user);
     router.push('/account/dashboard');
   };
