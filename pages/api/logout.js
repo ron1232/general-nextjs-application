@@ -4,7 +4,7 @@ import { verifyCsrfToken } from '@/utils/csrf';
 
 export default async (req, res) => {
   if (req.method === 'POST') {
-    const parsed = cookie.parse(req.headers.cookie || '');
+    const parsed = cookie.parse(req?.headers?.cookie || '');
     const csrfToken = parsed?.[csrfCookieKey];
 
     try {

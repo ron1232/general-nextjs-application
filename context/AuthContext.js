@@ -19,7 +19,25 @@ export const AuthProvider = ({ children, csrfToken }) => {
 
   // Register User
   const register = async (user) => {
-    console.log(user);
+    const { res, data } = await http(`${NEXT_URL}/api/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user),
+    });
+
+    if (!res.ok) {
+      setError(data.message);
+      return setError(null);
+    }
+
+    Cookies.set(csrfCookieKey, csrfToken, {
+      sameSite: 'lax',
+      expires: 60 * 60 * 24 * 7,
+      path: '/',
+    });
+
+    setUser(data.user);
+    router.push('/account/dashboard');
   };
 
   // Login User

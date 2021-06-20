@@ -24,21 +24,12 @@ export default function RegisterPage() {
     resolver: yupResolver(registerSchema),
   });
 
+  useEffect(() => {
+    error && toast.error(error);
+  });
+
   const onSubmit = async ({ username, email, password }) => {
     registerUser({ username, email, password });
-    // const { data, res } = await http(`${API_URL}/events`, {
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(values),
-    //   method: 'POST',
-    // });
-    // setDisabled(true);
-
-    // if (!res.ok) {
-    //   toast.error('Something went wrong :(');
-    // } else {
-    //   toast.success('Added Event!');
-    //   router.push(`/events/${data.slug}`);
-    // }
   };
 
   return (

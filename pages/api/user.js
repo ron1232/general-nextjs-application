@@ -6,7 +6,7 @@ import { verifyCsrfToken } from '@/utils/csrf';
 
 export default async (req, res) => {
   if (req.method === 'GET') {
-    const parsed = cookie.parse(req.headers.cookie || '');
+    const parsed = cookie.parse(req?.headers?.cookie || '');
     const token = parsed?.[authCookieKey];
     const csrfToken = parsed?.[csrfCookieKey];
 

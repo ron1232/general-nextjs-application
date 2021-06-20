@@ -11,8 +11,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import GoBack from '@/components/GoBack';
 import { eventSchema } from '@/schema/eventSchema';
+import { parseCookies } from '@/utils/cookie';
+import { authCookieKey } from '@/utils/config';
 
-export default function AddEventPage() {
+export default function AddEventPage({ authToken }) {
   const [disabled, setDisabled] = useState(false);
 
   const {
@@ -25,7 +27,10 @@ export default function AddEventPage() {
 
   const onSubmit = async (values) => {
     const { data, res } = await http(`${API_URL}/events`, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
       body: JSON.stringify(values),
       method: 'POST',
     });
@@ -86,4 +91,12 @@ export default function AddEventPage() {
       </form>
     </Layout>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const authToken = parseCookies(req)?.[authCookieKey];
+
+  return {
+    props: { authToken },
+  };
 }

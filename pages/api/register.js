@@ -5,13 +5,16 @@ import { authCookieKey } from '@/utils/config';
 
 export default async (req, res) => {
   if (req.method === 'POST') {
-    const { identifier, password } = req.body;
+    const { username, email, password } = req.body;
 
-    const { res: strapiRes, data } = await http(`${API_URL}/auth/local`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ identifier, password }),
-    });
+    const { res: strapiRes, data } = await http(
+      `${API_URL}/auth/local/register`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password }),
+      }
+    );
 
     if (!strapiRes.ok) {
       return res

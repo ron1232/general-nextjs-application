@@ -93,3 +93,13 @@ h1 {
 .active {
   font-weight: 700;
 }
+
+.fake-btn {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
