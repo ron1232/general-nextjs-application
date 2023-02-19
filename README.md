@@ -1,1 +1,1 @@
-This is my first Next JS App.
+Nextjs application for general purpose.
